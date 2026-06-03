@@ -1,4 +1,4 @@
-// Copyright Epic Games, Inc. All Rights Reserved.
+// War GAS - SIMAO
 
 using UnrealBuildTool;
 using System.Collections.Generic;
