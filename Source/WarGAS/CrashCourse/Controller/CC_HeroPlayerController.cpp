@@ -3,6 +3,8 @@
 
 #include "CC_HeroPlayerController.h"
 
+#include <WarGASDebugHelper.h>
+
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "GameFramework/Character.h"
@@ -30,6 +32,8 @@ void ACC_HeroPlayerController::SetupInputComponent()
 	EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &ThisClass::StopJumping);
 	EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ThisClass::Move);
 	EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ThisClass::Look);
+	
+	EnhancedInputComponent->BindAction(PrimaryAction, ETriggerEvent::Started, this, &ThisClass::Primary);
 }
 
 void ACC_HeroPlayerController::Jump()
@@ -67,4 +71,9 @@ void ACC_HeroPlayerController::Look(const FInputActionValue& Value)
 
 	AddYawInput(LookAxisVector.X);
 	AddPitchInput(LookAxisVector.Y);
+}
+
+void ACC_HeroPlayerController::Primary()
+{
+	Debug::Print(TEXT("Ability - Primary"));
 }

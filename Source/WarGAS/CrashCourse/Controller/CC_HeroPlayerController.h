@@ -25,21 +25,28 @@ protected:
 	
 private:
 
-	UPROPERTY(EditDefaultsOnly, Category = "Crash|Input")
+	UPROPERTY(EditDefaultsOnly, Category = "Crash|Input|Movement")
 	TArray<TObjectPtr<UInputMappingContext>> InputMappingContexts;
 
-	UPROPERTY(EditDefaultsOnly, Category = "Crash|Input")
+	UPROPERTY(EditDefaultsOnly, Category = "Crash|Input|Movement")
 	TObjectPtr<UInputAction> JumpAction;
 
-	UPROPERTY(EditDefaultsOnly, Category = "Crash|Input")
+	UPROPERTY(EditDefaultsOnly, Category = "Crash|Input|Movement")
 	TObjectPtr<UInputAction> MoveAction;
 
-	UPROPERTY(EditDefaultsOnly, Category = "Crash|Input")
+	UPROPERTY(EditDefaultsOnly, Category = "Crash|Input|Movement")
 	TObjectPtr<UInputAction> LookAction;
 
+#pragma region Abilities
+	UPROPERTY(EditDefaultsOnly, Category = "Crash|Input|Abilities")
+	TObjectPtr<UInputAction> PrimaryAction;
+	
+#pragma endregion Abilities
+	
 	void Jump();
 	void StopJumping();
 	void Move(const FInputActionValue& Value);
 	void Look(const FInputActionValue& Value);
+	void Primary();
 	
 };
