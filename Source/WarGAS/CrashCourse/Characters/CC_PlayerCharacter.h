@@ -14,7 +14,10 @@ class WARGAS_API ACC_PlayerCharacter : public ACC_BaseCharacter
 	GENERATED_BODY()
 	
 public:
-	ACC_PlayerCharacter();
+	ACC_PlayerCharacter();	
+	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
+	virtual void PossessedBy(AController* NewController) override;
+	virtual void OnRep_PlayerState() override;
 	
 private:
 	
