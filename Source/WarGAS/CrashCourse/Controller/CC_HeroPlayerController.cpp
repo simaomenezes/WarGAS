@@ -5,9 +5,12 @@
 
 #include <WarGASDebugHelper.h>
 
+#include "AbilitySystemBlueprintLibrary.h"
+#include "AbilitySystemComponent.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "GameFramework/Character.h"
+#include "WarGAS/CrashCourse/GameplayTags/CCTags.h"
 
 ACC_HeroPlayerController::ACC_HeroPlayerController()
 {
@@ -75,5 +78,18 @@ void ACC_HeroPlayerController::Look(const FInputActionValue& Value)
 
 void ACC_HeroPlayerController::Primary()
 {
-	Debug::Print(TEXT("Ability - Primary"));
+	//Debug::Print(TEXT("Ability - Primary"));
+	// Activated ability by tag
+	ActivateAbility(CCTags::CCAbilities::Primary);
+}
+
+/**
+ * Activated ability by tag 
+ ***/
+void ACC_HeroPlayerController::ActivateAbility(const FGameplayTag& AbilityTag) const
+{
+	UAbilitySystemComponent* ASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(GetPawn());
+	if (!IsValid(ASC)) return;
+	
+	ASC->TryActivateAbilitiesByTag(AbilityTag.GetSingleTagContainer());
 }
