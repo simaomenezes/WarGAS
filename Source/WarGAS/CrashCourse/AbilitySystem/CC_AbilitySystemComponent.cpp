@@ -3,26 +3,36 @@
 
 #include "CC_AbilitySystemComponent.h"
 
+#include "WarGAS/CrashCourse/GameplayTags/CCTags.h"
 
-UCC_AbilitySystemComponent::UCC_AbilitySystemComponent()
+void UCC_AbilitySystemComponent::OnGiveAbility(FGameplayAbilitySpec& AbilitySpec)
 {
-	PrimaryComponentTick.bCanEverTick = true;
-
-}
-
-
-void UCC_AbilitySystemComponent::BeginPlay()
-{
-	Super::BeginPlay();
-
+	Super::OnGiveAbility(AbilitySpec);
 	
+	HandleAutoActivatedAbility(AbilitySpec);
 }
 
-
-void UCC_AbilitySystemComponent::TickComponent(float DeltaTime, ELevelTick TickType,
-                                               FActorComponentTickFunction* ThisTickFunction)
+void UCC_AbilitySystemComponent::OnRep_ActivateAbilities()
 {
-	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
+	Super::OnRep_ActivateAbilities();
+	
+	FScopedAbilityListLock ActiveScopeLock(*this);
+	for (const FGameplayAbilitySpec& AbilitySpec : GetActivatableAbilities())
+	{
+		HandleAutoActivatedAbility(AbilitySpec);
+	}
 }
 
+void UCC_AbilitySystemComponent::HandleAutoActivatedAbility(const FGameplayAbilitySpec& AbilitySpec)
+{
+	if (!IsValid(AbilitySpec.Ability)) return;
+
+	for (const FGameplayTag& Tag : AbilitySpec.Ability->GetAssetTags())
+	{
+		if (Tag.MatchesTagExact(CCTags::CCAbilities::ActivateOnGiven))
+		{
+			TryActivateAbility(AbilitySpec.Handle);
+			return;
+		}
+	}
+}

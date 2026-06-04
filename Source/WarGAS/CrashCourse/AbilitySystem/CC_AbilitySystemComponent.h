@@ -13,12 +13,10 @@ class WARGAS_API UCC_AbilitySystemComponent : public UAbilitySystemComponent
 	GENERATED_BODY()
 
 public:
-	UCC_AbilitySystemComponent();
-
-protected:
-	virtual void BeginPlay() override;
-
-public:
-	virtual void TickComponent(float DeltaTime, ELevelTick TickType,
-	                           FActorComponentTickFunction* ThisTickFunction) override;
+	
+	virtual void OnGiveAbility(FGameplayAbilitySpec& AbilitySpec) override;
+	virtual void OnRep_ActivateAbilities() override;
+	
+private:
+	void HandleAutoActivatedAbility(const FGameplayAbilitySpec& AbilitySpec);
 };
