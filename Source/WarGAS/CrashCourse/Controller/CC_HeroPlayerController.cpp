@@ -37,6 +37,8 @@ void ACC_HeroPlayerController::SetupInputComponent()
 	EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ThisClass::Look);
 	
 	EnhancedInputComponent->BindAction(PrimaryAction, ETriggerEvent::Started, this, &ThisClass::Primary);
+	EnhancedInputComponent->BindAction(SecondaryAction, ETriggerEvent::Triggered, this, &ThisClass::Secondary);
+	EnhancedInputComponent->BindAction(TertiaryAction, ETriggerEvent::Triggered, this, &ThisClass::Tertiary);
 }
 
 void ACC_HeroPlayerController::Jump()
@@ -81,6 +83,18 @@ void ACC_HeroPlayerController::Primary()
 	//Debug::Print(TEXT("Ability - Primary"));
 	// Activated ability by tag
 	ActivateAbility(CCTags::CCAbilities::Primary);
+}
+
+void ACC_HeroPlayerController::Secondary()
+{
+	Debug::Print(TEXT("Ability - Secondary"));
+	ActivateAbility(CCTags::CCAbilities::Secondary);
+}
+
+void ACC_HeroPlayerController::Tertiary()
+{
+	Debug::Print(TEXT("Ability - Tertiary"));
+	ActivateAbility(CCTags::CCAbilities::Tertiary);
 }
 
 /**
