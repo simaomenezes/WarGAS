@@ -37,7 +37,7 @@ public:
 	void InitAbilitySystemData();
 	bool IsASCInitialized() const;
 	void InitializeAttributeDelegate();
-	
+		
 	void BindWidgetToAttributeChanges(UWidget* WidgetObject, const TTuple<FGameplayAttribute, FGameplayAttribute>& Pair) const;
 
 	UFUNCTION()
