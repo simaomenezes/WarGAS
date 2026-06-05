@@ -3,6 +3,7 @@
 #include "CC_BaseCharacter.h"
 
 #include "AbilitySystemComponent.h"
+#include "Net/UnrealNetwork.h"
 
 
 ACC_BaseCharacter::ACC_BaseCharacter()
@@ -41,3 +42,35 @@ void ACC_BaseCharacter::InitializeAttributes() const
 	FGameplayEffectSpecHandle SpecHandle = GetAbilitySystemComponent()->MakeOutgoingSpec(InitializeAttributesEffect, 1.f, ContextHandle);
 	GetAbilitySystemComponent()->ApplyGameplayEffectSpecToSelf(*SpecHandle.Data.Get());
 }
+
+#pragma region Health
+
+void ACC_BaseCharacter::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+	
+	DOREPLIFETIME(ThisClass, bAlive);
+}
+
+void ACC_BaseCharacter::HandleRespawn()
+{
+	bAlive = true;
+}
+
+void ACC_BaseCharacter::OnHealthChanged(const FOnAttributeChangeData& AttributeChangeData)
+{
+	if (AttributeChangeData.NewValue <= 0.f)
+	{
+		HandleDeath();
+	}
+}
+
+void ACC_BaseCharacter::HandleDeath()
+{
+	bAlive = false;
+	if (IsValid(GEngine))
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Red, FString::Printf(TEXT("%s has died!"), *GetName()));
+	}
+}
+#pragma endregion Health 

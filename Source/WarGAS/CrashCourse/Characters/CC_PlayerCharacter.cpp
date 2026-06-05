@@ -7,7 +7,10 @@
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "WarGAS/CrashCourse/AbilitySystem/CC_AttributeSet.h"
 #include "WarGAS/CrashCourse/Player/CC_PlayerState.h"
+
+class UCC_AttributeSet;
 
 ACC_PlayerCharacter::ACC_PlayerCharacter()
 {
@@ -67,6 +70,13 @@ void ACC_PlayerCharacter::PossessedBy(AController* NewController)
 	OnASCInitialized.Broadcast(GetAbilitySystemComponent(), GetAttributeSet());
 	GiveStartUpAbilities();	
 	InitializeAttributes();
+	
+	// Changed Health
+	UCC_AttributeSet* CC_AttributeSet = Cast<UCC_AttributeSet>(GetAttributeSet());
+	if (!IsValid(CC_AttributeSet)) return;
+	
+	GetAbilitySystemComponent()->GetGameplayAttributeValueChangeDelegate(CC_AttributeSet->GetHealthAttribute()).AddUObject(this, &ThisClass::OnHealthChanged);
+	// Changed Health
 }
 
 void ACC_PlayerCharacter::OnRep_PlayerState()
@@ -77,6 +87,13 @@ void ACC_PlayerCharacter::OnRep_PlayerState()
 
 	GetAbilitySystemComponent()->InitAbilityActorInfo(GetPlayerState(), this);
 	OnASCInitialized.Broadcast(GetAbilitySystemComponent(), GetAttributeSet());
+	
+	// Changed Health
+	UCC_AttributeSet* CC_AttributeSet = Cast<UCC_AttributeSet>(GetAttributeSet());
+	if (!IsValid(CC_AttributeSet)) return;
+	
+	GetAbilitySystemComponent()->GetGameplayAttributeValueChangeDelegate(CC_AttributeSet->GetHealthAttribute()).AddUObject(this, &ThisClass::OnHealthChanged);
+	// Changed Health
 }
 
 void ACC_PlayerCharacter::BeginPlay()
