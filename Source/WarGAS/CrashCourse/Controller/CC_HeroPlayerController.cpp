@@ -80,20 +80,16 @@ void ACC_HeroPlayerController::Look(const FInputActionValue& Value)
 
 void ACC_HeroPlayerController::Primary()
 {
-	//Debug::Print(TEXT("Ability - Primary"));
-	// Activated ability by tag
 	ActivateAbility(CCTags::CCAbilities::Primary);
 }
 
 void ACC_HeroPlayerController::Secondary()
 {
-	Debug::Print(TEXT("Ability - Secondary"));
 	ActivateAbility(CCTags::CCAbilities::Secondary);
 }
 
 void ACC_HeroPlayerController::Tertiary()
 {
-	Debug::Print(TEXT("Ability - Tertiary"));
 	ActivateAbility(CCTags::CCAbilities::Tertiary);
 }
 
