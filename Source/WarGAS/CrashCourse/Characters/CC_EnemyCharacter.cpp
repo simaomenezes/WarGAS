@@ -35,4 +35,6 @@ void ACC_EnemyCharacter::BeginPlay()
 	
 	GiveStartUpAbilities();
 	
+	InitializeAttributes();
+	
 }
