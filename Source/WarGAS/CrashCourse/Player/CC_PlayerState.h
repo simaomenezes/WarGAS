@@ -7,6 +7,7 @@
 #include "GameFramework/PlayerState.h"
 #include "CC_PlayerState.generated.h"
 
+class UAttributeSet;
 /**
  * 
  */
@@ -23,6 +24,9 @@ public:
 private:
 	UPROPERTY(VisibleAnywhere, Category = "Crash|Abilities")
 	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
+	
+	UPROPERTY()
+	TObjectPtr<UAttributeSet> AttributeSet;
 };
 
 
