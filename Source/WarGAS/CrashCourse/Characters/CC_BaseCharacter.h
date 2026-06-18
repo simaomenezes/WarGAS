@@ -6,6 +6,12 @@
 #include "GameFramework/Character.h"
 #include "CC_BaseCharacter.generated.h"
 
+namespace CrashTags
+{
+	extern WARGAS_API const FName Player;
+	
+}
+
 struct FOnAttributeChangeData;
 class UAttributeSet;
 class UGameplayEffect;
