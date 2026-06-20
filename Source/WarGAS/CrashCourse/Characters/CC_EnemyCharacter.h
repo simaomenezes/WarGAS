@@ -21,6 +21,16 @@ public:
 	virtual UAttributeSet* GetAttributeSet() const override;
 	
 protected:
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Crash|AI")
+	float AcceptanceRadius{500.f};
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Crash|AI")
+	float MinAttackDelay{.1f};
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Crash|AI")
+	float MaxAttackDelay{.5f};
+	
 	virtual void BeginPlay() override;
 	
 private:
