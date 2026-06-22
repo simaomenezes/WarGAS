@@ -3,6 +3,7 @@
 
 #include "CC_EnemyCharacter.h"
 
+#include "AIController.h"
 #include "WarGAS/CrashCourse/AbilitySystem/CC_AbilitySystemComponent.h"
 #include "WarGAS/CrashCourse/AbilitySystem/CC_AttributeSet.h"
 
@@ -49,4 +50,13 @@ void ACC_EnemyCharacter::BeginPlay()
 	
 	GetAbilitySystemComponent()->GetGameplayAttributeValueChangeDelegate(CC_AttributeSet->GetHealthAttribute()).AddUObject(this, &ThisClass::OnHealthChanged);
 	// Changed Health
+}
+
+void ACC_EnemyCharacter::HandleDeath()
+{
+	Super::HandleDeath();
+	
+	AAIController* AIController = GetController<AAIController>();
+	if (!IsValid(AIController)) return;
+	AIController->StopMovement();
 }
