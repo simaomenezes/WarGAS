@@ -3,10 +3,12 @@
 
 #include "CC_Projectile.h"
 
+#include "AbilitySystemBlueprintLibrary.h"
 #include "AbilitySystemComponent.h"
 #include "GameplayEffectTypes.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "WarGAS/CrashCourse/Characters/CC_PlayerCharacter.h"
+#include "WarGAS/CrashCourse/GameplayTags/CCTags.h"
 
 // Sets default values
 ACC_Projectile::ACC_Projectile()
@@ -34,6 +36,8 @@ void ACC_Projectile::NotifyActorBeginOverlap(AActor* OtherActor)
 	FGameplayEffectSpecHandle SpecHandle = AbilitySystemComponent->MakeOutgoingSpec(DamageEffect, 1.f, ContextHandle);
 	
 	//TODO Use the Damage variable for this amount of damage to couse
+	
+	UAbilitySystemBlueprintLibrary::AssignTagSetByCallerMagnitude(SpecHandle, CCTags::SetByCaller::Projectile, Damage);
 	
 	AbilitySystemComponent->ApplyGameplayEffectSpecToSelf(*SpecHandle.Data.Get());
 	
