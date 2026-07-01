@@ -1,4 +1,4 @@
-﻿/*
+﻿
 #pragma once
 
 
@@ -15,4 +15,3 @@ namespace Debug
 			}
 		}
 }
-*/

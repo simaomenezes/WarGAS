@@ -10,6 +10,7 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "WarGAS/WarGASDebugHelper.h"
 #include "WarGAS/TPActionRPG/WarriorGameplayTags.h"
+#include "WarGAS/TPActionRPG/AbilitySystem/WarriorAbilitySystemComponent.h"
 #include "WarGAS/TPActionRPG/DataAssets/Input/WarriorInputComponent.h"
 #include "WarGAS/TPActionRPG/DataAssets/Input/Warrior_DataAsset_InputConfig.h"
 
@@ -37,6 +38,22 @@ AWarriorHeroCharacter::AWarriorHeroCharacter()
 	GetCharacterMovement()->RotationRate = FRotator(0.f,500.f,0.f);
 	GetCharacterMovement()->MaxWalkSpeed = 400.f;
 	GetCharacterMovement()->BrakingDecelerationWalking = 2000.f;
+}
+
+void AWarriorHeroCharacter::PossessedBy(AController* NewController)
+{
+	Super::PossessedBy(NewController);
+	
+	if (WarriorAbilitySystemComponent && WarriorAttributeSet)
+	{
+		const FString ASCText = FString::Printf(TEXT("Owner Actor: %s, AvatarActor: %s"),
+			*WarriorAbilitySystemComponent->GetOwnerActor()->GetActorLabel(),
+			*WarriorAbilitySystemComponent->GetAvatarActor()->GetActorLabel());
+		
+		Debug::Print(TEXT("Ability system component valid. ") + ASCText,FColor::Green);
+		Debug::Print(TEXT("AttributeSet valid. ") + ASCText,FColor::Green);
+	}
+	
 }
 
 void AWarriorHeroCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
