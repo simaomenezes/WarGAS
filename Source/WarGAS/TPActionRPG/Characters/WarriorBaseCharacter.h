@@ -34,7 +34,7 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Warrior|AbilitySystem")
 	UWarriorAttributeSet* WarriorAttributeSet;
 	
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "CharacterData")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Warrior|CharacterData")
 	TSoftObjectPtr<UWarrior_DataAsset_StartUpDataBase> CharacterStartUpData;
 	
 public:
