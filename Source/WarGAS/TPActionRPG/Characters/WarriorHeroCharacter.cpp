@@ -50,8 +50,8 @@ void AWarriorHeroCharacter::PossessedBy(AController* NewController)
 			*WarriorAbilitySystemComponent->GetOwnerActor()->GetActorLabel(),
 			*WarriorAbilitySystemComponent->GetAvatarActor()->GetActorLabel());
 		
-		Debug::Print(TEXT("Ability system component valid. ") + ASCText,FColor::Green);
-		Debug::Print(TEXT("AttributeSet valid. ") + ASCText,FColor::Green);
+		//Debug::Print(TEXT("Ability system component valid. ") + ASCText,FColor::Green);
+		//Debug::Print(TEXT("AttributeSet valid. ") + ASCText,FColor::Green);
 	}
 	
 }
