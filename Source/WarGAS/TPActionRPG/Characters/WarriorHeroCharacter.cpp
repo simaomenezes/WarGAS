@@ -12,6 +12,7 @@
 #include "WarGAS/TPActionRPG/AbilitySystem/WarriorAbilitySystemComponent.h"
 #include "WarGAS/TPActionRPG/DataAssets/Input/WarriorInputComponent.h"
 #include "WarGAS/TPActionRPG/DataAssets/Input/Warrior_DataAsset_InputConfig.h"
+#include "WarGAS/TPActionRPG/DataAssets/StartUpData/Warrior_DataAsset_StartUpDataBase.h"
 
 
 // Sets default values
@@ -43,14 +44,12 @@ void AWarriorHeroCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
 	
-	if (WarriorAbilitySystemComponent && WarriorAttributeSet)
+	if (!CharacterStartUpData.IsNull())
 	{
-		const FString ASCText = FString::Printf(TEXT("Owner Actor: %s, AvatarActor: %s"),
-			*WarriorAbilitySystemComponent->GetOwnerActor()->GetActorLabel(),
-			*WarriorAbilitySystemComponent->GetAvatarActor()->GetActorLabel());
-		
-		//Debug::Print(TEXT("Ability system component valid. ") + ASCText,FColor::Green);
-		//Debug::Print(TEXT("AttributeSet valid. ") + ASCText,FColor::Green);
+		if (UWarrior_DataAsset_StartUpDataBase* LoadedData = CharacterStartUpData.LoadSynchronous())
+		{
+			LoadedData->GiveToAbilitySystemComponent(WarriorAbilitySystemComponent);
+		}
 	}
 	
 }
